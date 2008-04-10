@@ -8,6 +8,7 @@ Source0:	https://fedorahosted.org/mlocate/attachment/wiki/MlocateDownloads/%{nam
 # Source0-md5:	ad5e4eb1f2aecf1a5af9fe36c6e297f4
 URL:		https://fedorahosted.org/mlocate/
 BuildRequires:	rpmbuild(macros) >= 1.228
+Conflicts:	slocate
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
