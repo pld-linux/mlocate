@@ -23,11 +23,8 @@ GNU locate, when it does not conflict with slocate compatibility.
 %setup -q
 
 %build
-
 %configure
-%{__make} \
-	CFLAGS="%{rpmcflags}" \
-	LDFLAGS="%{rpmldflags}"
+%{__make}
 
 %install
 rm -rf $RPM_BUILD_ROOT
@@ -40,12 +37,10 @@ rm -rf $RPM_BUILD_ROOT
 %clean
 rm -rf $RPM_BUILD_ROOT
 
-
 %files -f %{name}.lang
 %defattr(644,root,root,755)
 %doc ABOUT-NLS AUTHORS ChangeLog NEWS README
-
 %attr(755,root,root) %{_bindir}/*
-%{_mandir}/man1/*
-%{_mandir}/man5/*
-%{_mandir}/man8/*
+%{_mandir}/man1/*.1*
+%{_mandir}/man5/*.5*
+%{_mandir}/man8/*.8*
