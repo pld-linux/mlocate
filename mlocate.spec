@@ -1,4 +1,5 @@
 Summary:	A locate/updatedb implementation
+Summary(pl.UTF-8):	Implementacja locate/updatedb
 Name:		mlocate
 Version:	0.20
 Release:	0.1
@@ -22,6 +23,15 @@ of the file system, which makes updatedb faster and does not trash the
 system caches as much. The locate(1) utility is intended to be
 completely compatible to slocate. It also attempts to be compatible to
 GNU locate, when it does not conflict with slocate compatibility.
+
+%description -l pl.UTF-8
+mlocate to nowa implementacja locate. "m" oznacza "merging" (łącząca),
+ponieważ updatedb wykorzystuje istniejącą bazę aby zapobiec ponownemu
+odczytywaniu większości systemu plików, dzięki czemu updatedb działa
+szybciej i nie czyści tak bardzo buforów systemowych. Narzędzie
+locate(1) powinno być w pełni kompatybilne z slocate. Próbuje być
+kompatybilne także z GNU locate, o ile nie jest to w konflikcie z
+kompatybilnością z slocate.
 
 %prep
 %setup -q
@@ -56,10 +66,9 @@ if [ "$1" = "0" ]; then
 	%groupremove mlocate
 fi
 
-
 %files -f %{name}.lang
 %defattr(644,root,root,755)
-%doc ABOUT-NLS AUTHORS ChangeLog NEWS README
+%doc AUTHORS ChangeLog NEWS README
 %attr(755,root,root) %{_bindir}/locate
 %attr(755,root,root) %{_bindir}/updatedb
 %{_mandir}/man1/*.1*
