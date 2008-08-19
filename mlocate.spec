@@ -1,19 +1,20 @@
 Summary:	A locate/updatedb implementation
 Summary(pl.UTF-8):	Implementacja locate/updatedb
 Name:		mlocate
-Version:	0.20
+Version:	0.21
 Release:	0.1
 License:	GPL v2
 Group:		Applications/System
-Source0:	https://fedorahosted.org/mlocate/attachment/wiki/MlocateDownloads/%{name}-%{version}.tar.bz2?format=raw
-# Source0-md5:	ad5e4eb1f2aecf1a5af9fe36c6e297f4
+Source0:	https://fedorahosted.org/releases/m/l/mlocate/%{name}-%{version}.tar.bz2
+# Source0-md5:	51c8e6a40079542923c0a1411512c57d
 URL:		https://fedorahosted.org/mlocate/
 BuildRequires:	rpmbuild(macros) >= 1.228
 Requires(postun):	/usr/sbin/groupdel
 Requires(pre):	/usr/bin/getgid
 Requires(pre):	/usr/sbin/groupadd
 Provides:	group(mlocate)
-Conflicts:	slocate
+Provides:	locate-utility
+Obsoletes:	locate-utility
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -69,9 +70,10 @@ fi
 %files -f %{name}.lang
 %defattr(644,root,root,755)
 %doc AUTHORS ChangeLog NEWS README
-%attr(755,root,root) %{_bindir}/locate
+%attr(2755,root,mlocate) %{_bindir}/locate
 %attr(755,root,root) %{_bindir}/updatedb
-%{_mandir}/man1/*.1*
-%{_mandir}/man5/*.5*
-%{_mandir}/man8/*.8*
+%{_mandir}/man1/locate.1*
+%{_mandir}/man5/mlocate.db.5*
+%{_mandir}/man5/updatedb.conf.5*
+%{_mandir}/man8/updatedb.8*
 %dir %attr(750,root,mlocate) /var/lib/mlocate
