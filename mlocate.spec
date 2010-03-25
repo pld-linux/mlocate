@@ -1,14 +1,17 @@
+# TODO
+# - cron
 Summary:	A locate/updatedb implementation
 Summary(pl.UTF-8):	Implementacja locate/updatedb
 Name:		mlocate
-Version:	0.22
-Release:	0.1
+Version:	0.22.3
+Release:	1
 License:	GPL v2
 Group:		Applications/System
-Source0:	https://fedorahosted.org/releases/m/l/mlocate/%{name}-%{version}.tar.bz2
-# Source0-md5:	ffd78b6ff967a8ae9f4780f6a9a95e68
+Source0:	https://fedorahosted.org/releases/m/l/mlocate/%{name}-%{version}.tar.xz
+# Source0-md5:	eb09c57c25ab98b74cbd45234f3f7851
 URL:		https://fedorahosted.org/mlocate/
 BuildRequires:	rpmbuild(macros) >= 1.228
+BuildRequires:	tar >= 1:1.22
 Requires(postun):	/usr/sbin/groupdel
 Requires(pre):	/usr/bin/getgid
 Requires(pre):	/usr/sbin/groupadd
