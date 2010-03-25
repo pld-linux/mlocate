@@ -1,5 +1,3 @@
-# TODO
-# - cron
 Summary:	A locate/updatedb implementation
 Summary(pl.UTF-8):	Implementacja locate/updatedb
 Name:		mlocate
@@ -9,12 +7,15 @@ License:	GPL v2
 Group:		Applications/System
 Source0:	https://fedorahosted.org/releases/m/l/mlocate/%{name}-%{version}.tar.xz
 # Source0-md5:	eb09c57c25ab98b74cbd45234f3f7851
+Source1:	updatedb.conf
+Source2:	%{name}.cron
 URL:		https://fedorahosted.org/mlocate/
 BuildRequires:	rpmbuild(macros) >= 1.228
 BuildRequires:	tar >= 1:1.22
 Requires(postun):	/usr/sbin/groupdel
 Requires(pre):	/usr/bin/getgid
 Requires(pre):	/usr/sbin/groupadd
+Requires:	crondaemon
 Provides:	group(mlocate)
 Provides:	locate-utility
 Obsoletes:	locate-utility
@@ -47,10 +48,15 @@ kompatybilnością z slocate.
 
 %install
 rm -rf $RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOT/var/lib/mlocate
+install -d $RPM_BUILD_ROOT/var/lib/%{name}
 
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT
+
+install -d $RPM_BUILD_ROOT{%{_sysconfdir},/etc/cron.daily}
+install -p %{SOURCE1} $RPM_BUILD_ROOT%{_sysconfdir}/updatedb.conf
+install -p %{SOURCE2} $RPM_BUILD_ROOT/etc/cron.daily/%{name}.cron
+touch $RPM_BUILD_ROOT%{_localstatedir}/lib/%{name}/%{name}.db
 
 %find_lang %{name}
 
@@ -58,25 +64,28 @@ install -d $RPM_BUILD_ROOT/var/lib/mlocate
 rm -rf $RPM_BUILD_ROOT
 
 %pre
-%groupadd -g 196 mlocate
+%groupadd -g 196 %{name}
 
 %post
-if [ ! -f /var/lib/mlocate/mlocate.db ]; then
-	echo 'Run "%{_bindir}/updatedb" if you want to make mlocate database immediately.'
+if [ ! -f %{_localstatedir}/lib/%{name}/%{name}.db ]; then
+	echo 'Run "%{_bindir}/updatedb" if you want to make %{name} database immediately.'
 fi
 
 %postun
 if [ "$1" = "0" ]; then
-	%groupremove mlocate
+	%groupremove %{name}
 fi
 
 %files -f %{name}.lang
 %defattr(644,root,root,755)
 %doc AUTHORS ChangeLog NEWS README
+%attr(755,root,root) /etc/cron.daily/%{name}.cron
+%config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/updatedb.conf
 %attr(2755,root,mlocate) %{_bindir}/locate
 %attr(755,root,root) %{_bindir}/updatedb
 %{_mandir}/man1/locate.1*
-%{_mandir}/man5/mlocate.db.5*
+%{_mandir}/man5/%{name}.db.5*
 %{_mandir}/man5/updatedb.conf.5*
 %{_mandir}/man8/updatedb.8*
-%dir %attr(750,root,mlocate) /var/lib/mlocate
+%dir %attr(750,root,mlocate) /var/lib/%{name}
+%ghost %{_localstatedir}/lib/%{name}/%{name}.db
