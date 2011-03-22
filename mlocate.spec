@@ -15,6 +15,7 @@ BuildRequires:	tar >= 1:1.22
 Requires(postun):	/usr/sbin/groupdel
 Requires(pre):	/usr/bin/getgid
 Requires(pre):	/usr/sbin/groupadd
+Requires:	awk
 Requires:	crondaemon
 Provides:	group(mlocate)
 Provides:	locate-utility
