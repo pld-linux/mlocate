@@ -1,12 +1,12 @@
 Summary:	A locate/updatedb implementation
 Summary(pl.UTF-8):	Implementacja locate/updatedb
 Name:		mlocate
-Version:	0.24
-Release:	2
+Version:	0.25
+Release:	1
 License:	GPL v2
 Group:		Applications/System
 Source0:	https://fedorahosted.org/releases/m/l/mlocate/%{name}-%{version}.tar.xz
-# Source0-md5:	a9c221e5bc489a2ed710c943990137bd
+# Source0-md5:	c6d043b170613b0e327a815b497f680a
 Source1:	updatedb.conf
 Source2:	%{name}.cron
 URL:		https://fedorahosted.org/mlocate/
