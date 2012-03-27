@@ -12,6 +12,7 @@ Source2:	%{name}.cron
 URL:		https://fedorahosted.org/mlocate/
 BuildRequires:	rpmbuild(macros) >= 1.228
 BuildRequires:	tar >= 1:1.22
+BuildRequires:	xz
 Requires(postun):	/usr/sbin/groupdel
 Requires(pre):	/usr/bin/getgid
 Requires(pre):	/usr/sbin/groupadd
