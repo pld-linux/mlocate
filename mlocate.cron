@@ -1,5 +1,5 @@
 #!/bin/sh
-nodevs=$(awk '$1 == "nodev" { print $2 }' /proc/filesystems)
+nodevs=$(awk '$1 == "nodev" && $2 != "rootfs" { print $2 }' /proc/filesystems)
 renice +19 -p $$ >/dev/null 2>&1
 ionice -c2 -n7 -p $$ >/dev/null 2>&1
 exec /usr/bin/updatedb -f "$nodevs"
