@@ -2,7 +2,7 @@ Summary:	A locate/updatedb implementation
 Summary(pl.UTF-8):	Implementacja locate/updatedb
 Name:		mlocate
 Version:	0.26
-Release:	1
+Release:	2
 License:	GPL v2
 Group:		Applications/System
 Source0:	https://fedorahosted.org/releases/m/l/mlocate/%{name}-%{version}.tar.xz
@@ -56,7 +56,7 @@ rm -rf $RPM_BUILD_ROOT
 
 install -d $RPM_BUILD_ROOT{%{_sysconfdir},/etc/cron.daily}
 cp -p %{SOURCE1} $RPM_BUILD_ROOT%{_sysconfdir}/updatedb.conf
-install -p %{SOURCE2} $RPM_BUILD_ROOT/etc/cron.daily/%{name}.cron
+install -p %{SOURCE2} $RPM_BUILD_ROOT/etc/cron.daily/%{name}
 touch $RPM_BUILD_ROOT%{_localstatedir}/lib/%{name}/%{name}.db
 
 %find_lang %{name}
@@ -80,7 +80,7 @@ fi
 %files -f %{name}.lang
 %defattr(644,root,root,755)
 %doc AUTHORS ChangeLog NEWS README
-%attr(755,root,root) /etc/cron.daily/%{name}.cron
+%attr(755,root,root) /etc/cron.daily/%{name}
 %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/updatedb.conf
 %attr(2755,root,mlocate) %{_bindir}/locate
 %attr(755,root,root) %{_bindir}/updatedb
