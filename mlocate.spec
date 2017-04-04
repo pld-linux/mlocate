@@ -1,5 +1,5 @@
-# TODO: 
-# - Add 
+# TODO:
+# - Add
 #	nodevs=$(awk '$1 == "nodev" && $2 != "rootfs" { print $2 }' /proc/filesystems)
 #	exec /usr/bin/updatedb -f "$nodevs"
 #   to ExecStart=/usr/bin/updatedb
