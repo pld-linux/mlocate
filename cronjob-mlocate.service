@@ -1,0 +1,11 @@
+[Unit]
+Description=mlocate cronjob
+
+[Service]
+ExecStart=/usr/bin/updatedb
+Type=simple
+Nice=19
+IOSchedulingClass=2
+IOSchedulingPriority=7
+
+

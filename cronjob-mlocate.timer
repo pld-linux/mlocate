@@ -1,0 +1,11 @@
+[Unit]
+Description=mlocate cronjob timer
+
+[Timer]
+OnCalendar=*-*-* 03:49:00
+Persistent=True
+
+[Install]
+WantedBy=cronjobs.target
+
+# vi: ft=systemd
