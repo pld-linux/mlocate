@@ -11,13 +11,13 @@ Version:	0.26
 Release:	5
 License:	GPL v2
 Group:		Applications/System
-Source0:	https://fedorahosted.org/releases/m/l/mlocate/%{name}-%{version}.tar.xz
+Source0:	https://releases.pagure.org/mlocate/%{name}-%{version}.tar.xz
 # Source0-md5:	539e6f86bf387358aa2b14d5f880e49a
 Source1:	updatedb.conf
 Source2:	%{name}.cron
 Source3:	cronjob-%{name}.timer
 Source4:	cronjob-%{name}.service
-URL:		https://fedorahosted.org/mlocate/
+URL:		https://pagure.io/mlocate
 BuildRequires:	rpmbuild(macros) >= 1.228
 BuildRequires:	tar >= 1:1.22
 BuildRequires:	xz
@@ -66,13 +66,12 @@ rm -rf $RPM_BUILD_ROOT
 
 install -d $RPM_BUILD_ROOT{%{_sysconfdir},/etc/cron.daily}
 cp -p %{SOURCE1} $RPM_BUILD_ROOT%{_sysconfdir}/updatedb.conf
-install -p %{SOURCE2} $RPM_BUILD_ROOT/etc/cron.daily/%{name}.cron
+install -p %{SOURCE2} $RPM_BUILD_ROOT/etc/cron.daily/%{name}
 touch $RPM_BUILD_ROOT%{_localstatedir}/lib/%{name}/%{name}.db
 
 install -d  $RPM_BUILD_ROOT%{systemdunitdir}
 install -p %{SOURCE3} $RPM_BUILD_ROOT%{systemdunitdir}/cronjob-%{name}.timer
 install -p %{SOURCE4} $RPM_BUILD_ROOT%{systemdunitdir}/cronjob-%{name}.service
-
 
 %find_lang %{name}
 
@@ -91,18 +90,16 @@ fi
 %preun
 %systemd_preun cronjob-%{name}.timer
 
-
 %postun
 if [ "$1" = "0" ]; then
 	%groupremove %{name}
 fi
 %systemd_reload
 
-
 %files -f %{name}.lang
 %defattr(644,root,root,755)
 %doc AUTHORS ChangeLog NEWS README
-%attr(755,root,root) /etc/cron.daily/%{name}.cron
+%attr(755,root,root) /etc/cron.daily/%{name}
 %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/updatedb.conf
 %attr(2755,root,mlocate) %{_bindir}/locate
 %attr(755,root,root) %{_bindir}/updatedb
@@ -114,4 +111,3 @@ fi
 %ghost %{_localstatedir}/lib/%{name}/%{name}.db
 %{systemdunitdir}/cronjob-%{name}.service
 %{systemdunitdir}/cronjob-%{name}.timer
-
